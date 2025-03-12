@@ -9,6 +9,9 @@ declare module "@mui/material/styles" {
         iconButton: {
             hoverBackground: string;
         };
+        layout: {
+            background: string;
+        }
     }
 
     interface PaletteOptions {
@@ -18,6 +21,9 @@ declare module "@mui/material/styles" {
         iconButton?: {
             hoverBackground: string;
         };
+        layout?: {
+            background: string;
+        }
     }
 }
 
@@ -41,10 +47,11 @@ export const lightTheme = createTheme({
         iconButton: {
             hoverBackground: "rgba(0, 123, 255, 0.04)", // Light Mode hover
         },
+        layout: { background: "#ffffff" }
     },
     typography: {
         fontFamily: "Arial, sans-serif",
-    },
+    }
 });
 
 // Define dark theme
@@ -67,10 +74,11 @@ export const darkTheme = createTheme({
         iconButton: {
             hoverBackground: "rgba(255, 255, 255, 0.11)", // Dark mode hover
         },
+        layout: { background: "#121212" },
     },
     typography: {
         fontFamily: "Arial, sans-serif",
-    },
+    }
 });
 
 

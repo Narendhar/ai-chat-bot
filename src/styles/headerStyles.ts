@@ -18,9 +18,9 @@ export const headerStyles = {
         stroke: isDarkMode ? "white" : "black",
         strokeWidth: 1,
     }),
-    menuButton: (isDarkMode: boolean) => ({
-        ml: "auto",
-        border: "1px solid black",
+    menuButton: (isDarkMode: boolean, isMobile: boolean = false) => ({
+        ml: isMobile ? "" : "auto",
+        border: isMobile ? "0px" : isDarkMode ? "1px solid white" : "1px solid black",
         ...headerStyles.darkModeIcon(isDarkMode),
         "&:hover": {
             border: "1px solid black",
@@ -29,17 +29,17 @@ export const headerStyles = {
     }),
     settingsButton: (isDarkMode: boolean) => ({
         ml: 1,
-        border: "1px solid black",
+        border: isDarkMode ? "1px solid white" : "1px solid black",
         ...headerStyles.darkModeIcon(isDarkMode),
         "&:hover": {
             border: "1px solid black",
             backgroundColor: "transparent",
         },
     }),
-    userAvatarButton: {
+    userAvatarButton: (isDarkMode: boolean) => ({
         ml: 1,
         position: "relative",
-        border: "1px solid black",
+        border: isDarkMode ? "1px solid white" : "1px solid black",
         backgroundImage: `url('/src/assets/images/user.png')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -50,7 +50,7 @@ export const headerStyles = {
             border: "1px solid black",
             backgroundColor: "transparent",
         },
-    },
+    }),
     onlineStatus: {
         position: "absolute",
         bottom: 0,

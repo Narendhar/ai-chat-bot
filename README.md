@@ -19,6 +19,7 @@ To set up the project locally, follow these steps:
 ```bash
 git clone https://github.com/Narendhar/ai-chat-bot.git
 cd chat-app
+git checkout master
 npm install
 ```
 

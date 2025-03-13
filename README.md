@@ -1,54 +1,102 @@
-# React + TypeScript + Vite
+# 💬 AI Chat Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📚 Overview
+This project is a real-time AI-powered chat application that allows users to interact with an AI assistant. It supports streaming responses, conversation history, and theming using **Material-UI (MUI)**.
 
-Currently, two official plugins are available:
+## 🚀 Features
+✅ **Real-time AI responses** with streaming  
+✅ **Abort ongoing requests** when sending a new message  
+✅ **Light/Dark mode** support with MUI theming  
+✅ **Error handling** for API failures  
+✅ **Desktop/Mobile Responsiveness** to adapt in all devices  
+✅ **Local storage** to persist conversation history  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🔧 Installation
+To set up the project locally, follow these steps:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+git clone https://github.com/your-repo/chat-app.git
+cd chat-app
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ▶️ How to Run the Application
+Run the project in development mode:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm run dev
 ```
+
+For production mode:
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+## 🌎 Environment Variables
+Create a `.env` file in the root directory and add the following values:
+
+```env
+VITE_API_KEY=your-api-key
+VITE_API_URL=https://your-api-endpoint.com
+```
+
+> **Note:** Replace `your-api-key` and `your-api-endpoint.com` with actual values.
+
+---
+
+## 📂 Folder Structure
+```
+/src
+  ├── components/    # Chat UI components
+  ├── pages/         # Main chat page
+  ├── styles/        # MUI styling
+  ├── utils/         # Helper functions (e.g., time formatting)
+  ├── App.tsx        # Main entry file
+```
+
+---
+
+## ⚙️ API Endpoints
+| Method | Endpoint | Description |
+|--------|---------|------------|
+| GET    | `/stream?prompt=` | Streams AI responses |
+
+---
+
+## 🛠️ Handling Streaming & Aborts
+- **Streaming responses** are processed line-by-line for real-time updates.
+- **AbortController** is used to cancel previous requests when a new message is sent.
+- **Error handling** displays messages when API calls fail.
+
+---
+
+## 🐞 Common Errors & Solutions
+| Error | Solution |
+|-------|----------|
+| `Streaming error: DOMException: The operation was aborted.` | Ensure previous requests are properly aborted. |
+| `Failed to fetch API response` | Check network connectivity or API key. |
+
+---
+
+## 💜 License
+This project is licensed under the MIT License.
+
+## 🤝 Contributing
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature-name`)
+3. Commit your changes (`git commit -m 'Add feature'`)
+4. Push to GitHub (`git push origin feature-name`)
+5. Open a **Pull Request**
+
+---
+
+🚀 **Enjoy building your AI chat experience!**  
+

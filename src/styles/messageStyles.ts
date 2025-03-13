@@ -1,3 +1,5 @@
+import { Theme } from "@mui/material/styles";
+
 export const messageStyles = {
     messageContainer: {
         display: "flex",
@@ -29,11 +31,15 @@ export const messageStyles = {
         gap: 1,
     },
 
-    messageBox: (isDarkMode: boolean) => ({
-        backgroundColor: isDarkMode ? "rgba(255, 255, 255, 0.11)" : "rgba(0, 123, 255, 0.04)",
-        color: isDarkMode ? "white" : "grey.900",
+    messageBox: (theme: Theme) => ({
+        backgroundColor: theme.palette.custom.messageBackground,
+        color: theme.palette.custom.textDark,
         borderRadius: 2,
         padding: 1,
         maxWidth: "100%",
-    })
+    }),
+
+    messageBoxContent: {
+        whiteSpace: "pre-line"
+    }
 }

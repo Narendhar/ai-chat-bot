@@ -1,28 +1,18 @@
-import { useContext, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
-import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone";
 
 import ChatInput from "../components/ChatInput";
 import ChatWindow from "../components/ChatWindow";
 import Header from "../components/Header";
 
-import { ThemeContext } from "../theme/ThemeProviderWrapper";
+import { getISTTime } from "../utils/timeUtils";
+
+import { Message } from "../types/chatTypes";
 
 import { chatLayoutStyles } from "../styles/chatLayoutStyles";
-
-
-dayjs.extend(timezone);
-
-interface Message {
-    id: number;
-    text: string;
-    sender: "user" | "ai";
-    timestamp: string;
-}
 
 /**
  * ChatPage component that renders a chat interface with messages exchanged between a user and an AI.
@@ -40,18 +30,20 @@ interface Message {
 const ChatPage = () => {
 
     const theme = useTheme();
-    const { toggleTheme, isDarkMode } = useContext(ThemeContext);
-    const [messages, setMessages] = useState<Message[]>([
+    const initialMessages: Message[] = [
         { id: 1, text: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s?", sender: "user", timestamp: getISTTime() },
         { id: 2, text: "Hi! How can I assist you?", sender: "ai", timestamp: getISTTime() },
         { id: 3, text: "All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary?", sender: "user", timestamp: getISTTime() },
-        { id: 4, text: "Sure! What specifically?", sender: "ai", timestamp: getISTTime() },
-        { id: 5, text: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s?", sender: "user", timestamp: getISTTime() },
-        { id: 6, text: "Hi! How can I assist you?", sender: "ai", timestamp: getISTTime() },
-        { id: 7, text: "All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary?", sender: "user", timestamp: getISTTime() },
-        { id: 8, text: "Sure! What specifically?", sender: "ai", timestamp: getISTTime() }
-    ]);
+        { id: 4, text: "Sure! What specifically?", sender: "ai", timestamp: getISTTime() }
+    ];
+    const [messages, setMessages] = useState<Message[]>(initialMessages);
 
+    const [chatHistory, setChatHistory] = useState<string[]>([]);
+    const [isStreaming, setIsStreaming] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const controllerRef = useRef<AbortController | null>(null);
+    const apiKey = import.meta.env.VITE_API_KEY;
+    const apiURL = import.meta.env.VITE_API_URL;
     /**
      * Handles sending a message in the chat.
      *
@@ -64,7 +56,17 @@ const ChatPage = () => {
      * 
      * @throws {Error} Will throw an error if message is not a string or if the messages state is corrupted.
      */
-    const handleSendMessage = (message: string) => {
+    const handleSendMessage = useCallback(async (message: string) => {
+        if (!message.trim()) return;
+
+        setErrorMessage(null);
+        setChatHistory(prev => [...prev, `User: ${message}`]);
+        setIsStreaming(true);
+
+        if (controllerRef.current) {
+            controllerRef.current.abort();
+        }
+
         const userMessage: Message = {
             id: messages.length + 1,
             text: message,
@@ -72,34 +74,75 @@ const ChatPage = () => {
             timestamp: getISTTime(),
         };
 
-        const aiResponse: Message = {
+        const aiMessage: Message = {
             id: messages.length + 2,
-            text: "I'm here to help! 😊", // Simulating AI response
+            text: "AI is typing...",
             sender: "ai",
             timestamp: getISTTime(),
         };
 
-        setMessages([...messages, userMessage, aiResponse]);
-    };
+        setMessages(prev => [...prev, userMessage, aiMessage]);
 
-    /**
-     * Retrieves the current time in Indian Standard Time (IST).
-     *
-     * This function uses the dayjs library to get the current time and formats it 
-     * in a 12-hour clock format (hh:mm AM/PM).
-     *
-     * @returns {string} The current time in IST formatted as "hh:mm A".
-     * 
-     * @throws {Error} Will throw an error if there is an issue with timezone retrieval or formatting.
-     */
-    function getISTTime() {
-        return dayjs().tz("Asia/Kolkata").format("hh:mm A"); // Get IST time in hh:mm AM/PM format
-    }
+        controllerRef.current = new AbortController();
+        const signal = controllerRef.current.signal;
+
+        try {
+            const response = await fetch(`${apiURL}?prompt=${encodeURIComponent(message)}`, {
+                method: "GET",
+                headers: { "x-api-key": apiKey },
+                signal,
+            });
+
+            if (!response.ok) throw new Error(`API Error: ${response.status} ${response.statusText}`);
+            if (!response.body) throw new Error("No response body");
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let accumulatedText = "";
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+
+                chunk.split("\n").forEach(line => {
+                    if (!line.startsWith("data: ")) return;
+
+                    try {
+                        const json = JSON.parse(line.substring(5).trim());
+                        const deltaContent = json.choices?.[0]?.delta?.content || "";
+
+                        if (deltaContent) {
+                            accumulatedText += deltaContent;
+                            setMessages(prev =>
+                                prev.map(msg =>
+                                    msg.id === aiMessage.id ? { ...msg, text: accumulatedText } : msg
+                                )
+                            );
+                        }
+                    } catch (error) {
+                        console.error("JSON parse error:", error);
+                    }
+                });
+            }
+        } catch (error) {
+            if (error instanceof DOMException && error.name === "AbortError") {
+                console.log("✅ Request was aborted:", error);
+            }
+            else {
+                console.error("Streaming error:", error);
+                setErrorMessage("Failed to get a response. Please try again.");
+            }
+        } finally {
+            setIsStreaming(false);
+        }
+    }, [messages]);
 
     return (
-        <Box sx={chatLayoutStyles(isDarkMode)}>
+        <Box sx={chatLayoutStyles(theme)}>
             <Header />
-            <ChatWindow messages={messages} />
+            <ChatWindow messages={messages} isLoading={isStreaming} errorMessage={errorMessage} />
             <ChatInput onSendMessage={handleSendMessage} />
         </Box >
     );

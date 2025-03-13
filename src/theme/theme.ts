@@ -8,9 +8,16 @@ declare module "@mui/material/styles" {
         };
         iconButton: {
             hoverBackground: string;
+            border: string;
         };
-        layout: {
-            background: string;
+        custom: {
+            messageBackground: string;
+            textLight: string;
+            textDark: string;
+            errorMessage: string;
+            lightModeIconStroke: string;
+            darkModeIconStroke: string;
+            darkModeIconColor: string;
         }
     }
 
@@ -20,9 +27,16 @@ declare module "@mui/material/styles" {
         };
         iconButton?: {
             hoverBackground: string;
+            border: string;
         };
-        layout?: {
-            background: string;
+        custom?: {
+            messageBackground: string;
+            textLight: string;
+            textDark: string;
+            errorMessage: string;
+            lightModeIconStroke: string;
+            darkModeIconStroke: string;
+            darkModeIconColor: string;
         }
     }
 }
@@ -31,23 +45,25 @@ declare module "@mui/material/styles" {
 export const lightTheme = createTheme({
     palette: {
         mode: "light",
-        primary: {
-            main: "#007BFF",
-        },
-        secondary: {
-            main: "#FF4081",
-        },
         background: {
-            default: "#ffffff",
-            paper: "#f5f5f5",
+            default: "#ffffff"
         },
         appBar: {
-            background: "#ffffff", // Now TypeScript won't complain
+            background: "#ffffff",
         },
         iconButton: {
             hoverBackground: "rgba(0, 123, 255, 0.04)", // Light Mode hover
+            border: "black"
         },
-        layout: { background: "#ffffff" }
+        custom: {
+            messageBackground: "rgba(0, 123, 255, 0.04)",
+            textLight: "grey.900",
+            textDark: "grey.900",
+            errorMessage: "red",
+            lightModeIconStroke: "transparent",
+            darkModeIconStroke: "black",
+            darkModeIconColor: "transparent"
+        },
     },
     typography: {
         fontFamily: "Arial, sans-serif",
@@ -58,23 +74,25 @@ export const lightTheme = createTheme({
 export const darkTheme = createTheme({
     palette: {
         mode: "dark",
-        primary: {
-            main: "#90CAF9",
-        },
-        secondary: {
-            main: "#F48FB1",
-        },
         background: {
             default: "#121212",
-            paper: "#1e1e1e",
         },
         appBar: {
             background: "#1e1e1e", // Dark mode AppBar
         },
         iconButton: {
             hoverBackground: "rgba(255, 255, 255, 0.11)", // Dark mode hover
+            border: "white"
         },
-        layout: { background: "#121212" },
+        custom: {
+            messageBackground: "rgba(255, 255, 255, 0.11)",
+            textLight: "white",
+            textDark: "white",
+            errorMessage: "red",
+            lightModeIconStroke: "black",
+            darkModeIconStroke: "white",
+            darkModeIconColor: "transparent"
+        },
     },
     typography: {
         fontFamily: "Arial, sans-serif",

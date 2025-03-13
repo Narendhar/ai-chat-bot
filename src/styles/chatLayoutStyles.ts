@@ -1,9 +1,10 @@
+import { Theme } from "@mui/material/styles";
 
-export const chatLayoutStyles = (isDarkMode: boolean) => ({
+export const chatLayoutStyles = (theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     width: "100vw",
     height: "100vh",
     paddingBottom: "16px",
-    backgroundColor: isDarkMode ? "#000000" : "#ffffff"
+    backgroundColor: theme.palette.background.default
 })

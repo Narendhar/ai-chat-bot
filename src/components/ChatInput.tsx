@@ -38,10 +38,17 @@ const ChatInput = ({ onSendMessage }: ChatInputProps) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Check for mobile resolution
 
-    const handleSend = () => {
+    const handleSend = async () => {
         if (message.trim()) {
             onSendMessage(message);
             setMessage("");
+        }
+    };
+
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault(); // Prevents new line in input
+            handleSend();
         }
     };
 
@@ -59,6 +66,7 @@ const ChatInput = ({ onSendMessage }: ChatInputProps) => {
                         placeholder="Message..."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
+                        onKeyDown={handleKeyPress}
                         sx={chatInputStyles.textField}
                     />
 

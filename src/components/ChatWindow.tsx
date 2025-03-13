@@ -1,7 +1,9 @@
+import { useEffect, useRef } from "react";
+
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 
-import { Box } from "@mui/material";
+import { Box, CircularProgress, Typography, useTheme } from "@mui/material";
 
 import Message from "./Message";
 
@@ -19,6 +21,8 @@ interface Message {
 
 interface ChatWindowProps {
     messages: Message[];
+    isLoading: boolean;
+    errorMessage: string | null;
 }
 
 /**
@@ -32,12 +36,35 @@ interface ChatWindowProps {
  *
  * @throws {Error} May throw an error if the messages prop is not an array or if any message does not contain the required fields.
  */
-const ChatWindow = ({ messages }: ChatWindowProps) => {
+const ChatWindow = ({ messages, isLoading, errorMessage }: ChatWindowProps) => {
+
+    const chatContainerRef = useRef<HTMLDivElement>(null);
+    const theme = useTheme();
+
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    }, [messages]); // Runs whenever messages update
+
     return (
-        <Box sx={chatWindowStyles}>
+        <Box sx={chatWindowStyles.chatWindowWrapper} ref={chatContainerRef}>
             {messages.map((msg) => (
-                <Message key={msg.id} text={msg.text} sender={msg.sender} timestamp={msg.timestamp} />
+                <Message key={msg.id + Math.random()} text={msg.text} sender={msg.sender} timestamp={msg.timestamp} />
             ))}
+
+            {isLoading && (
+                <Box sx={chatWindowStyles.loaderBox}>
+                    <CircularProgress size={20} sx={chatWindowStyles.loader} />
+                    <Typography variant="body2" color="text.secondary">AI is typing...</Typography>
+                </Box>
+            )}
+
+            {errorMessage && (
+                <Box sx={chatWindowStyles.errorMessageBox(theme)}>
+                    <Typography variant="caption">{errorMessage}</Typography>
+                </Box>
+            )}
         </Box>
     );
 }

@@ -8,38 +8,38 @@ export const headerStyles = {
         "&:hover": { backgroundColor: isDarkMode ? "transparent" : theme.palette.iconButton.hoverBackground },
         backgroundColor: isDarkMode ? "none" : theme.palette.iconButton.hoverBackground,
     }),
-    lightModeIcon: (isDarkMode: boolean) => ({
-        color: isDarkMode ? "white" : "grey.900",
-        stroke: isDarkMode ? "black" : "transparent",
+    lightModeIcon: (theme: Theme) => ({
+        color: theme.palette.custom.textDark,
+        stroke: theme.palette.custom.lightModeIconStroke,
         strokeWidth: 1,
     }),
-    darkModeIcon: (isDarkMode: boolean) => ({
-        color: "transparent",
-        stroke: isDarkMode ? "white" : "black",
+    darkModeIcon: (theme: Theme) => ({
+        color: theme.palette.custom.darkModeIconColor,
+        stroke: theme.palette.custom.darkModeIconStroke,
         strokeWidth: 1,
     }),
-    menuButton: (isDarkMode: boolean, isMobile: boolean = false) => ({
+    menuButton: (theme: Theme, isMobile: boolean = false) => ({
         ml: isMobile ? "" : "auto",
-        border: isMobile ? "0px" : isDarkMode ? "1px solid white" : "1px solid black",
-        ...headerStyles.darkModeIcon(isDarkMode),
+        border: isMobile ? "0px" : `1px solid ${theme.palette.iconButton.border}`,
+        ...headerStyles.darkModeIcon(theme),
         "&:hover": {
-            border: "1px solid black",
+            border: `1px solid ${theme.palette.iconButton.border}`,
             backgroundColor: "transparent",
         },
     }),
-    settingsButton: (isDarkMode: boolean) => ({
+    settingsButton: (theme: Theme) => ({
         ml: 1,
-        border: isDarkMode ? "1px solid white" : "1px solid black",
-        ...headerStyles.darkModeIcon(isDarkMode),
+        border: `1px solid ${theme.palette.iconButton.border}`,
+        ...headerStyles.darkModeIcon(theme),
         "&:hover": {
-            border: "1px solid black",
+            border: `1px solid ${theme.palette.iconButton.border}`,
             backgroundColor: "transparent",
         },
     }),
-    userAvatarButton: (isDarkMode: boolean) => ({
+    userAvatarButton: (theme: Theme) => ({
         ml: 1,
         position: "relative",
-        border: isDarkMode ? "1px solid white" : "1px solid black",
+        border: `1px solid ${theme.palette.custom.textDark}`,
         backgroundImage: `url('/src/assets/images/user.png')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -47,11 +47,11 @@ export const headerStyles = {
         height: 42,
         borderRadius: "50%",
         "&:hover": {
-            border: "1px solid black",
+            border: `1px solid ${theme.palette.custom.textDark}`,
             backgroundColor: "transparent",
         },
     }),
-    onlineStatus: {
+    onlineStatus: (theme: Theme) => ({
         position: "absolute",
         bottom: 0,
         right: 0,
@@ -59,6 +59,6 @@ export const headerStyles = {
         height: 10,
         backgroundColor: "green",
         borderRadius: "50%",
-        border: "2px solid white",
-    },
+        border: `1px solid ${theme.palette.custom.textDark}`,
+    }),
 };

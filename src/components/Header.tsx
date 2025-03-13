@@ -50,7 +50,7 @@ const Header = () => {
                     <IconButton
                         onClick={handleCollapseToggle}
                         color="primary"
-                        sx={headerStyles.menuButton(isDarkMode, isMobile)}
+                        sx={headerStyles.menuButton(theme, isMobile)}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -60,7 +60,7 @@ const Header = () => {
                         color={isDarkMode ? "primary" : "inherit"}
                         sx={headerStyles.iconButton(theme, isDarkMode)}
                     >
-                        <LightModeIcon sx={headerStyles.lightModeIcon(isDarkMode)} />
+                        <LightModeIcon sx={headerStyles.lightModeIcon(theme)} />
                     </IconButton>
 
                     <IconButton
@@ -68,30 +68,30 @@ const Header = () => {
                         color={!isDarkMode ? "primary" : "inherit"}
                         sx={headerStyles.iconButton(theme, !isDarkMode)}
                     >
-                        <DarkModeIcon sx={headerStyles.darkModeIcon(isDarkMode)} />
+                        <DarkModeIcon sx={headerStyles.darkModeIcon(theme)} />
                     </IconButton>
 
                     <IconButton
                         onClick={handleCollapseToggle}
                         color={!isDarkMode ? "primary" : "inherit"}
-                        sx={headerStyles.menuButton(isDarkMode)}
+                        sx={headerStyles.menuButton(theme, isMobile)}
                     >
                         <MenuIcon />
                     </IconButton>
 
                     < IconButton
                         color={!isDarkMode ? "primary" : "inherit"}
-                        sx={headerStyles.settingsButton(isDarkMode)}
+                        sx={headerStyles.settingsButton(theme)}
                     >
                         <SettingsIcon />
                     </IconButton >
 
                     <IconButton
                         color={!isDarkMode ? "primary" : "inherit"}
-                        sx={headerStyles.userAvatarButton(isDarkMode)}
+                        sx={headerStyles.userAvatarButton(theme)}
                     >
                         <span
-                            style={headerStyles.onlineStatus as React.CSSProperties}
+                            style={headerStyles.onlineStatus(theme) as React.CSSProperties}
                         />
                     </IconButton>
                 </>
@@ -112,7 +112,7 @@ const Header = () => {
                             color={isDarkMode ? "primary" : "inherit"}
                             sx={headerStyles.iconButton(theme, isDarkMode)}
                         >
-                            <LightModeIcon sx={headerStyles.lightModeIcon(isDarkMode)} />
+                            <LightModeIcon sx={headerStyles.lightModeIcon(theme)} />
                         </IconButton>
 
                         <IconButton
@@ -120,22 +120,22 @@ const Header = () => {
                             color={!isDarkMode ? "primary" : "inherit"}
                             sx={headerStyles.iconButton(theme, !isDarkMode)}
                         >
-                            <DarkModeIcon sx={headerStyles.darkModeIcon(isDarkMode)} />
+                            <DarkModeIcon sx={headerStyles.darkModeIcon(theme)} />
                         </IconButton>
 
                         <IconButton
                             color={!isDarkMode ? "primary" : "inherit"}
-                            sx={headerStyles.settingsButton(isDarkMode)}
+                            sx={headerStyles.settingsButton(theme)}
                         >
                             <SettingsIcon />
                         </IconButton>
 
                         <IconButton
                             color={!isDarkMode ? "primary" : "inherit"}
-                            sx={headerStyles.userAvatarButton(isDarkMode)}
+                            sx={headerStyles.userAvatarButton}
                         >
                             <span
-                                style={headerStyles.onlineStatus as React.CSSProperties}
+                                style={headerStyles.onlineStatus(theme) as React.CSSProperties}
                             />
                         </IconButton>
                     </Box>

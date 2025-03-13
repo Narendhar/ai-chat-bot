@@ -1,12 +1,8 @@
-import { useContext } from "react";
-
-import { Box, Typography, Avatar } from "@mui/material";
+import { Box, Typography, Avatar, useTheme } from "@mui/material";
 
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-
-import { ThemeContext } from "../theme/ThemeProviderWrapper";
 
 import { messageStyles } from "../styles/messageStyles";
 
@@ -40,7 +36,8 @@ const profilePictures = {
  * @throws {Error} - Throws an error if the sender is not recognized (not "user" or "AI").
  */
 const Message = ({ text, sender, timestamp }: MessageProps) => {
-    const { isDarkMode } = useContext(ThemeContext);
+    const theme = useTheme();
+
     return (
         <Box sx={messageStyles.messageContainer}>
             <Box sx={messageStyles.messageWrapper}>
@@ -54,8 +51,8 @@ const Message = ({ text, sender, timestamp }: MessageProps) => {
                             {timestamp}
                         </Typography>
                     </Box>
-                    <Box sx={messageStyles.messageBox(isDarkMode)}>
-                        <Typography variant="body1">{text}</Typography>
+                    <Box sx={messageStyles.messageBox(theme)}>
+                        <Typography variant="body1" sx={messageStyles.messageBoxContent}>{text}</Typography>
                     </Box>
                 </Box>
             </Box>

@@ -10,7 +10,7 @@ import Header from "../components/Header";
 
 import { getISTTime } from "../utils/timeUtils";
 
-import { Message } from "../types/chatTypes";
+import { Message } from "../types/messageTypes";
 
 import { chatLayoutStyles } from "../styles/chatLayoutStyles";
 

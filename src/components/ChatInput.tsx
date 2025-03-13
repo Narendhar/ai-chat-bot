@@ -5,16 +5,9 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import MicNoneIcon from '@mui/icons-material/MicNone';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
-import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone";
+import { ChatInputProps } from "../types/chatInputTypes";
 
 import { chatInputStyles } from "../styles/chatInputStyles";
-
-dayjs.extend(timezone);
-
-interface ChatInputProps {
-    onSendMessage: (message: string) => void;
-}
 
 /**
  * ChatInput component for sending messages in a chat interface.

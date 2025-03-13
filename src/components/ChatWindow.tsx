@@ -7,23 +7,11 @@ import { Box, CircularProgress, Typography, useTheme } from "@mui/material";
 
 import Message from "./Message";
 
+import { ChatWindowProps } from "../types/chatWindowTypes";
+
 import { chatWindowStyles } from "../styles/chatWindowStyles";
 
 dayjs.extend(timezone);
-
-// Define a type for messages
-interface Message {
-    id: number;
-    text: string;
-    sender: "user" | "ai"; // Restrict sender to only "user" or "ai"
-    timestamp: string;
-}
-
-interface ChatWindowProps {
-    messages: Message[];
-    isLoading: boolean;
-    errorMessage: string | null;
-}
 
 /**
  * ChatWindow component that renders a chat interface displaying a list of messages.
@@ -50,7 +38,7 @@ const ChatWindow = ({ messages, isLoading, errorMessage }: ChatWindowProps) => {
     return (
         <Box sx={chatWindowStyles.chatWindowWrapper} ref={chatContainerRef}>
             {messages.map((msg) => (
-                <Message key={msg.id + Math.random()} text={msg.text} sender={msg.sender} timestamp={msg.timestamp} />
+                <Message id={msg.id ? msg.id + Math.random() : Math.random()} key={msg.id ? msg.id + Math.random() : Math.random()} text={msg.text} sender={msg.sender} timestamp={msg.timestamp} />
             ))}
 
             {isLoading && (

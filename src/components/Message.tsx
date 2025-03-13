@@ -1,19 +1,8 @@
 import { Box, Typography, Avatar, useTheme } from "@mui/material";
 
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
+import { MessageProps } from "../types/chatTypes";
 
 import { messageStyles } from "../styles/messageStyles";
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-
-interface MessageProps {
-    text: string;
-    sender: "user" | "ai";
-    timestamp: string;
-}
 
 const profilePictures = {
     user: "/src/assets/images/user.png", // Replace with actual user profile image path

@@ -1,4 +1,4 @@
-export interface MessageProps {
+export interface Message {
     id: number,
     text: string;
     sender: "user" | "ai";

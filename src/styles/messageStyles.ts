@@ -3,14 +3,15 @@ import { Theme } from "@mui/material/styles";
 export const messageStyles = {
     messageContainer: {
         display: "flex",
-        justifyContent: "center", // Centers the message container
+        justifyContent: "center",
         width: "100%",
     },
     messageWrapper: {
         display: "flex",
         alignItems: "flex-start",
-        width: "90%", // Controls chat width
+        width: "90%",
         marginBottom: "25px",
+        overflowX: "auto"
     },
 
     avatarStyle: {
@@ -37,6 +38,7 @@ export const messageStyles = {
         borderRadius: 2,
         padding: 1,
         maxWidth: "100%",
+        overflowX: "auto"
     }),
 
     messageBoxContent: {

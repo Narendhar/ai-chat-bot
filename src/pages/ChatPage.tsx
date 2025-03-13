@@ -16,16 +16,7 @@ import { chatLayoutStyles } from "../styles/chatLayoutStyles";
 
 /**
  * ChatPage component that renders a chat interface with messages exchanged between a user and an AI.
- * 
- * This component manages the state of chat messages and handles the sending of messages. 
- * It retrieves the current time in Indian Standard Time (IST) and updates the messages list 
- * with user input and simulated AI responses.
- *
- * @component
- * 
- * @returns {JSX.Element} The rendered chat page including the header, chat window, and input for sending messages.
- * 
- * @throws {Error} Will throw an error if dayjs fails to retrieve the timezone or format the time.
+ * @returns {JSX.Element} 
  */
 const ChatPage = () => {
 
@@ -46,15 +37,8 @@ const ChatPage = () => {
     const apiURL = import.meta.env.VITE_API_URL;
     /**
      * Handles sending a message in the chat.
-     *
-     * This function creates a message object for the user and a simulated AI response, 
-     * then updates the messages state with both messages.
-     *
      * @param {string} message - The message text to be sent by the user.
-     * 
      * @returns {void}
-     * 
-     * @throws {Error} Will throw an error if message is not a string or if the messages state is corrupted.
      */
     const handleSendMessage = useCallback(async (message: string) => {
         if (!message.trim()) return;
@@ -128,7 +112,7 @@ const ChatPage = () => {
             }
         } catch (error) {
             if (error instanceof DOMException && error.name === "AbortError") {
-                console.log("✅ Request was aborted:", error);
+                console.log("Request was aborted:", error);
             }
             else {
                 console.error("Streaming error:", error);

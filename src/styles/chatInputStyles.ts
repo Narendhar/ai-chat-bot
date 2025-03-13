@@ -1,7 +1,7 @@
 export const chatInputStyles = {
     chatInputContainer: {
         display: "flex",
-        justifyContent: "center", // Centers the message container
+        justifyContent: "center",
         width: "100%",
     },
 
@@ -16,12 +16,12 @@ export const chatInputStyles = {
 
     textField: {
         "& .MuiOutlinedInput-root": {
-            border: "none", // Remove border
-            height: "36px", // Adjust height
-            "& fieldset": { border: "none" }, // Ensure no border
+            border: "none",
+            height: "36px",
+            "& fieldset": { border: "none" },
         },
         "& .MuiInputBase-input": {
-            padding: "8px", // Reduce padding for height adjustment
+            padding: "8px",
         },
     },
 
@@ -37,7 +37,7 @@ export const chatInputStyles = {
 
     footerText: (isMobile: boolean) => ({
         marginTop: 1,
-        maxWidth: isMobile ? "60%" : "100%", // Reduce width on mobile
-        fontSize: isMobile ? "12px" : "14px", // Optional: Adjust font size for better readability
+        maxWidth: isMobile ? "60%" : "100%",
+        fontSize: isMobile ? "12px" : "14px",
     }),
 }

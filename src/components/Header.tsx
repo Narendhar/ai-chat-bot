@@ -14,30 +14,13 @@ import { headerStyles } from "../styles/headerStyles";
 
 /**
  * Header component that renders an application header with theme toggling and navigation options.
- * 
- * This component utilizes the context for theme management and handles the collapse state
- * for mobile view. It displays different buttons based on whether the application is in dark mode,
- * and provides functionalities to toggle the theme and open a drawer for additional options.
- * 
- * @returns {JSX.Element} The rendered header component containing the AppBar, Toolbar, and buttons.
- * 
- * @throws {Error} Throws an error if the ThemeContext is not available in the component tree.
- * 
- * @example
- * // Usage within a parent component
- * const App = () => {
- *   return (
- *     <ThemeProvider>
- *       <Header />
- *     </ThemeProvider>
- *   );
- * };
+ * @returns {JSX.Element}
  */
 const Header = () => {
     const { toggleTheme, isDarkMode } = useContext(ThemeContext);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Check for mobile resolution
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const handleCollapseToggle = () => {
         setIsCollapsed(prev => !prev);
@@ -98,14 +81,7 @@ const Header = () => {
                 }
                 <Drawer anchor="left" open={isCollapsed} onClose={handleCollapseToggle}>
                     <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center", // Centers items horizontally
-                            padding: 2,
-                            gap: 2, // Adds space between buttons
-                            width: 60, // Adjust width for a balanced layout
-                        }}
+                        sx={headerStyles.drawer}
                     >
                         <IconButton
                             onClick={isDarkMode ? () => toggleTheme(false) : undefined}

@@ -11,25 +11,13 @@ import { chatInputStyles } from "../styles/chatInputStyles";
 
 /**
  * ChatInput component for sending messages in a chat interface.
- *
- * @param {Object} props - The props for the ChatInput component.
- * @param {Function} props.onSendMessage - Callback function to handle sending the message.
- * 
- * @returns {JSX.Element} The rendered ChatInput component containing input fields and buttons.
- * 
- * @throws {Error} Throws an error if onSendMessage is not a function.
- *
- * @example
- * const handleSendMessage = (message: string) => {
- *     console.log("Message sent:", message);
- * };
- *
- * <ChatInput onSendMessage={handleSendMessage} />
+ * @param {Function} onSendMessage - Callback function to handle sending the message.
+ * @returns {JSX.Element} 
  */
 const ChatInput = ({ onSendMessage }: ChatInputProps) => {
     const [message, setMessage] = useState("");
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Check for mobile resolution
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const handleSend = async () => {
         if (message.trim()) {
@@ -40,7 +28,7 @@ const ChatInput = ({ onSendMessage }: ChatInputProps) => {
 
     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter" && !event.shiftKey) {
-            event.preventDefault(); // Prevents new line in input
+            event.preventDefault();
             handleSend();
         }
     };

@@ -61,4 +61,12 @@ export const headerStyles = {
         borderRadius: "50%",
         border: `1px solid ${theme.palette.custom.textDark}`,
     }),
+    drawer: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: 2,
+        gap: 2,
+        width: 60,
+    }
 };

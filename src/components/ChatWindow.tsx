@@ -14,15 +14,9 @@ import { chatWindowStyles } from "../styles/chatWindowStyles";
 dayjs.extend(timezone);
 
 /**
- * ChatWindow component that renders a chat interface displaying a list of messages.
- *
- * @param {ChatWindowProps} props - The properties for the ChatWindow component.
- * @param {Array<{ id: string; text: string; sender: string; timestamp: string }>} props.messages - An array of message objects to be displayed in the chat window.
- * Each message object should contain an `id`, `text`, `sender`, and `timestamp`.
- *
- * @returns {JSX.Element} A JSX element representing the chat window containing the list of messages.
- *
- * @throws {Error} May throw an error if the messages prop is not an array or if any message does not contain the required fields.
+ * ChatWindow component that renders a chat interface displaying a list of messages. 
+ * @param {Array<{ id: string; text: string; sender: string; timestamp: string }>} messages - An array of message objects to be displayed in the chat window.
+ * @returns {JSX.Element}
  */
 const ChatWindow = ({ messages, isLoading, errorMessage }: ChatWindowProps) => {
 
@@ -33,7 +27,7 @@ const ChatWindow = ({ messages, isLoading, errorMessage }: ChatWindowProps) => {
         if (chatContainerRef.current) {
             chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
-    }, [messages]); // Runs whenever messages update
+    }, [messages]);
 
     return (
         <Box sx={chatWindowStyles.chatWindowWrapper} ref={chatContainerRef}>

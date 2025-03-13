@@ -1,6 +1,5 @@
 import { createTheme } from "@mui/material/styles";
 
-// Extend the default MUI theme
 declare module "@mui/material/styles" {
     interface Palette {
         appBar: {
@@ -41,7 +40,6 @@ declare module "@mui/material/styles" {
     }
 }
 
-// Define light theme
 export const lightTheme = createTheme({
     palette: {
         mode: "light",
@@ -52,7 +50,7 @@ export const lightTheme = createTheme({
             background: "#ffffff",
         },
         iconButton: {
-            hoverBackground: "rgba(0, 123, 255, 0.04)", // Light Mode hover
+            hoverBackground: "rgba(0, 123, 255, 0.04)",
             border: "black"
         },
         custom: {
@@ -70,7 +68,6 @@ export const lightTheme = createTheme({
     }
 });
 
-// Define dark theme
 export const darkTheme = createTheme({
     palette: {
         mode: "dark",
@@ -78,10 +75,10 @@ export const darkTheme = createTheme({
             default: "#121212",
         },
         appBar: {
-            background: "#1e1e1e", // Dark mode AppBar
+            background: "#1e1e1e",
         },
         iconButton: {
-            hoverBackground: "rgba(255, 255, 255, 0.11)", // Dark mode hover
+            hoverBackground: "rgba(255, 255, 255, 0.11)",
             border: "white"
         },
         custom: {

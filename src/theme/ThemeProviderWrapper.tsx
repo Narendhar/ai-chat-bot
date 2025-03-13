@@ -8,7 +8,6 @@ export const ThemeContext = createContext({
     isDarkMode: false,
 });
 
-// Theme Provider Component
 export const ThemeProviderWrapper = ({ children }: { children: ReactNode }) => {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -19,7 +18,7 @@ export const ThemeProviderWrapper = ({ children }: { children: ReactNode }) => {
     return (
         <ThemeContext.Provider value={{ toggleTheme, isDarkMode }}>
             <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-                <CssBaseline /> {/* Normalizes styles for consistency */}
+                <CssBaseline />
                 {children}
             </ThemeProvider>
         </ThemeContext.Provider>

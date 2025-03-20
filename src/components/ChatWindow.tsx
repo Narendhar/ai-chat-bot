@@ -25,7 +25,7 @@ const ChatWindow = ({ messages, isLoading, errorMessage }: ChatWindowProps) => {
 
     useEffect(() => {
         const messageCount = messages.length;
-        if (chatContainerRef.current && messages[messageCount - 1].sender === "user") {
+        if (chatContainerRef.current && messages[messageCount - 2].sender === "user") {
             chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
     }, [messages]);

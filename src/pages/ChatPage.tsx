@@ -47,8 +47,8 @@ const ChatPage = () => {
         if (!message.trim()) return;
 
         setErrorMessage(null);
-        setChatHistory(prev => [...prev, `User: ${message}`]);
         setIsStreaming(true);
+        setChatHistory(prev => [...prev, `User: ${message}`]);
 
         if (controllerRef.current) {
             controllerRef.current.abort();
@@ -89,7 +89,10 @@ const ChatPage = () => {
 
             while (true) {
                 const { done, value } = await reader.read();
-                if (done) break;
+                if (done) {
+                    setIsStreaming(false);
+                    break;
+                }
 
                 const chunk = decoder.decode(value, { stream: true });
 
@@ -120,9 +123,8 @@ const ChatPage = () => {
             else {
                 console.error("Streaming error:", error);
                 setErrorMessage("Failed to get a response. Please try again.");
+                setIsStreaming(false);
             }
-        } finally {
-            setIsStreaming(false);
         }
     }, [messages]);
 

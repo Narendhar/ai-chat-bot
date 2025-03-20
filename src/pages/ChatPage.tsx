@@ -3,6 +3,7 @@ import { useCallback, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
+import { throttle } from "lodash";
 
 import ChatInput from "../components/ChatInput";
 import ChatWindow from "../components/ChatWindow";
@@ -35,12 +36,14 @@ const ChatPage = () => {
     const controllerRef = useRef<AbortController | null>(null);
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiURL = import.meta.env.VITE_API_URL;
+
     /**
      * Handles sending a message in the chat.
      * @param {string} message - The message text to be sent by the user.
      * @returns {void}
      */
     const handleSendMessage = useCallback(async (message: string) => {
+        console.log("Message sent:", message, "at", new Date().toISOString());
         if (!message.trim()) return;
 
         setErrorMessage(null);
@@ -60,7 +63,7 @@ const ChatPage = () => {
 
         const aiMessage: Message = {
             id: messages.length + 2,
-            text: "AI is typing...",
+            text: "",
             sender: "ai",
             timestamp: getISTTime(),
         };
@@ -123,11 +126,15 @@ const ChatPage = () => {
         }
     }, [messages]);
 
+    const throttledSendMessage = useRef(
+        throttle((message: string) => handleSendMessage(message), 5000, { leading: true, trailing: false })
+    ).current;
+
     return (
         <Box sx={chatLayoutStyles(theme)}>
             <Header />
             <ChatWindow messages={messages} isLoading={isStreaming} errorMessage={errorMessage} />
-            <ChatInput onSendMessage={handleSendMessage} />
+            <ChatInput onSendMessage={throttledSendMessage} />
         </Box >
     );
 };

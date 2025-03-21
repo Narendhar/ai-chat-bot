@@ -1,7 +1,5 @@
 import { useCallback, useRef, useState } from "react";
 
-import { useTheme } from "@mui/material/styles";
-
 import { throttle } from "lodash";
 
 import ChatInput from "../components/ChatInput";
@@ -20,7 +18,6 @@ import { ChatLayout } from "../styles/chatLayoutStyles";
  */
 const ChatPage = () => {
 
-    const theme = useTheme();
     const initialMessages: Message[] = [
         { id: 1, text: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s?", sender: "user", timestamp: getISTTime() },
         { id: 2, text: "Hi! How can I assist you?", sender: "ai", timestamp: getISTTime() },

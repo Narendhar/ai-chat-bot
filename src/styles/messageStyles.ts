@@ -1,47 +1,44 @@
-import { Theme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
+import { Avatar, Box } from "@mui/material";
 
-export const messageStyles = {
-    messageContainer: {
-        display: "flex",
-        justifyContent: "center",
-        width: "100%",
-    },
-    messageWrapper: {
-        display: "flex",
-        alignItems: "flex-start",
-        width: "90%",
-        marginBottom: "25px",
-        overflowX: "auto"
-    },
+export const MessageContainer = styled(Box)(() => ({
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+}));
 
-    avatarStyle: {
-        mr: 1,
-        width: 45,
-        height: 45,
-    },
-    messageContent: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        width: "100%",
-    },
+export const MessageWrapper = styled(Box)(() => ({
+    display: "flex",
+    alignItems: "flex-start",
+    width: "90%",
+    marginBottom: "25px",
+    overflowX: "auto"
+}));
 
-    usernameTimestampRow: {
-        display: "flex",
-        alignItems: "center",
-        gap: 1,
-    },
+export const MessageAvatar = styled(Avatar)(() => ({
+    marginRight: "8px",
+    width: 45,
+    height: 45,
+}));
 
-    messageBox: (theme: Theme) => ({
-        backgroundColor: theme.palette.custom.messageBackground,
-        color: theme.palette.custom.textDark,
-        borderRadius: 2,
-        padding: 1,
-        maxWidth: "100%",
-        overflowX: "auto"
-    }),
+export const MessageContent = styled(Box)(() => ({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    width: "100%",
+}));
 
-    messageBoxContent: {
-        whiteSpace: "pre-line"
-    }
-}
+export const UsernameTimestampRow = styled(Box)(() => ({
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+}));
+
+export const MessageBox = styled(Box)(({ theme }) => ({
+    backgroundColor: theme.palette.custom.messageBackground,
+    color: theme.palette.custom.textDark,
+    borderRadius: 8,
+    padding: "2px 8px",
+    maxWidth: "100%",
+    overflowX: "auto"
+}));

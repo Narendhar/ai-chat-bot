@@ -39,7 +39,7 @@ export const SendButton = styled(IconButton)(() => ({
 export const FooterText = styled(Typography, {
     shouldForwardProp: (prop) => prop !== "isMobile",
 })<{ isMobile?: boolean }>(({ isMobile }) => ({
-    marginTop: 1,
+    marginTop: "8px",
     maxWidth: isMobile ? "60%" : "100%",
     fontSize: isMobile ? "12px" : "14px",
 }));

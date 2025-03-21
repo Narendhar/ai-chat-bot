@@ -1,9 +1,9 @@
-import { Box, Typography, Avatar, useTheme } from "@mui/material";
+import { Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 
 import { MessageProps } from "../types/chatTypes";
 
-import { messageStyles } from "../styles/messageStyles";
+import { MessageAvatar, MessageBox, MessageContainer, MessageContent, MessageWrapper, UsernameTimestampRow } from "../styles/messageStyles";
 
 const profilePictures = {
     user: "/src/assets/images/user.png",
@@ -20,31 +20,29 @@ const profilePictures = {
  * @returns {JSX.Element}
  */
 const Message = ({ text, sender, timestamp }: MessageProps) => {
-    const theme = useTheme();
-
     return (
-        <Box sx={messageStyles.messageContainer}>
-            <Box sx={messageStyles.messageWrapper}>
-                <Avatar src={profilePictures[sender]} sx={messageStyles.avatarStyle} />
-                <Box sx={messageStyles.messageContent}>
-                    <Box sx={messageStyles.usernameTimestampRow}>
+        <MessageContainer>
+            <MessageWrapper>
+                <MessageAvatar src={profilePictures[sender]} />
+                <MessageContent>
+                    <UsernameTimestampRow>
                         <Typography variant="caption" fontWeight="bold">
                             {sender === "user" ? "You" : "AI"}
                         </Typography>
                         <Typography variant="caption" color="text.secondary">
                             {timestamp}
                         </Typography>
-                    </Box>
-                    <Box sx={messageStyles.messageBox(theme)}>
+                    </UsernameTimestampRow>
+                    <MessageBox>
                         {sender === "ai" ? (
                             <ReactMarkdown>{text}</ReactMarkdown>
                         ) : (
                             text
                         )}
-                    </Box>
-                </Box>
-            </Box>
-        </Box>
+                    </MessageBox>
+                </MessageContent>
+            </MessageWrapper>
+        </MessageContainer>
     );
 }
 

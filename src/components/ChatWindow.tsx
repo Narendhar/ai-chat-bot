@@ -3,13 +3,13 @@ import { useEffect, useRef } from "react";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 
-import { Box, CircularProgress, Typography, useTheme } from "@mui/material";
+import { Typography } from "@mui/material";
 
 import Message from "./Message";
 
 import { ChatWindowProps } from "../types/chatWindowTypes";
 
-import { chatWindowStyles } from "../styles/chatWindowStyles";
+import { ChatWindowWrapper, ErrorMessageBox, Loader, LoaderBox } from "../styles/chatWindowStyles";
 
 dayjs.extend(timezone);
 
@@ -21,7 +21,6 @@ dayjs.extend(timezone);
 const ChatWindow = ({ messages, isLoading, errorMessage }: ChatWindowProps) => {
 
     const chatContainerRef = useRef<HTMLDivElement>(null);
-    const theme = useTheme();
 
     useEffect(() => {
         const messageCount = messages.length;
@@ -31,24 +30,24 @@ const ChatWindow = ({ messages, isLoading, errorMessage }: ChatWindowProps) => {
     }, [messages]);
 
     return (
-        <Box sx={chatWindowStyles.chatWindowWrapper} ref={chatContainerRef}>
+        <ChatWindowWrapper ref={chatContainerRef}>
             {messages.map((msg) => (
                 <Message id={msg.id ? msg.id + Math.random() : Math.random()} key={msg.id ? msg.id + Math.random() : Math.random()} text={msg.text} sender={msg.sender} timestamp={msg.timestamp} />
             ))}
 
             {isLoading && (
-                <Box sx={chatWindowStyles.loaderBox}>
-                    <CircularProgress size={20} sx={chatWindowStyles.loader} />
+                <LoaderBox>
+                    <Loader size={20} />
                     <Typography variant="body2" color="text.secondary">AI is typing...</Typography>
-                </Box>
+                </LoaderBox>
             )}
 
             {errorMessage && (
-                <Box sx={chatWindowStyles.errorMessageBox(theme)}>
+                <ErrorMessageBox>
                     <Typography variant="caption">{errorMessage}</Typography>
-                </Box>
+                </ErrorMessageBox>
             )}
-        </Box>
+        </ChatWindowWrapper>
     );
 }
 

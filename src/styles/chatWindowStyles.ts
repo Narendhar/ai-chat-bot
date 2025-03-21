@@ -1,25 +1,26 @@
-import { Theme } from "@mui/material/styles";
+import { Box, CircularProgress, styled } from "@mui/material"
 
-export const chatWindowStyles = {
-    chatWindowWrapper: {
-        flex: 1,
-        overflowY: "auto",
-        padding: 4,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
-    },
-    loaderBox: {
-        display: "flex",
-        alignItems: "center",
-        mt: 1
-    },
-    loader: {
-        mr: 1
-    },
-    errorMessageBox: (theme: Theme) => ({
-        color: theme.palette.custom.errorMessage,
-        textAlign: "center",
-        p: 1
-    })
-};
+export const ChatWindowWrapper = styled(Box)(() => ({
+    flex: 1,
+    overflowY: "auto",
+    padding: "32px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+}));
+
+export const LoaderBox = styled(Box)(() => ({
+    display: "flex",
+    alignItems: "center",
+    marginTop: "8px"
+}));
+
+export const Loader = styled(CircularProgress)(() => ({
+    marginRight: "8px"
+}));
+
+export const ErrorMessageBox = styled(Box)(({ theme }) => ({
+    color: theme.palette.custom.errorMessage,
+    textAlign: "center",
+    padding: "8px"
+}));

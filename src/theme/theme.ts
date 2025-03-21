@@ -55,8 +55,8 @@ export const lightTheme = createTheme({
         },
         custom: {
             messageBackground: "rgba(0, 123, 255, 0.04)",
-            textLight: "grey.900",
-            textDark: "grey.900",
+            textLight: "#212121",
+            textDark: "#212121",
             errorMessage: "red",
             lightModeIconStroke: "transparent",
             darkModeIconStroke: "black",

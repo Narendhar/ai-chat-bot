@@ -1,6 +1,5 @@
 import { useCallback, useRef, useState } from "react";
 
-import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 import { throttle } from "lodash";

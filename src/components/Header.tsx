@@ -1,15 +1,13 @@
 import { useContext, useState } from "react";
 
-import { AppBar, Toolbar, IconButton, useTheme, useMediaQuery, Box } from "@mui/material";
+import { Toolbar, useTheme, useMediaQuery } from "@mui/material";
 import { Drawer } from "@mui/material";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MenuIcon from "@mui/icons-material/Menu";
 import SettingsIcon from '@mui/icons-material/Settings';
 
 import { ThemeContext } from "../theme/ThemeProviderWrapper";
 
-import { headerStyles } from "../styles/headerStyles";
+import { HeaderAppBar, HeaderIconButton, HeaderMenuButton, HeaderSettingsButton, OnlineStatus, SideMenuDrawer, ThemeDarkModeIcon, ThemeLightModeIcon, UserAvatarButton } from "../styles/headerStyles";
 
 
 /**
@@ -27,97 +25,87 @@ const Header = () => {
     };
 
     return (
-        <AppBar position="static" sx={headerStyles.appBar(theme)}>
+        <HeaderAppBar position="static">
             <Toolbar>
                 {isMobile ? (
-                    <IconButton
+                    <HeaderMenuButton
                         onClick={handleCollapseToggle}
                         color="primary"
-                        sx={headerStyles.menuButton(theme, isMobile)}
+                        isMobile={isMobile}
                     >
                         <MenuIcon />
-                    </IconButton>
+                    </HeaderMenuButton>
                 ) : <>
-                    <IconButton
+                    <HeaderIconButton
                         onClick={isDarkMode ? () => toggleTheme(false) : undefined}
                         color={isDarkMode ? "primary" : "inherit"}
-                        sx={headerStyles.iconButton(theme, isDarkMode)}
+                        isDarkMode={isDarkMode}
                     >
-                        <LightModeIcon sx={headerStyles.lightModeIcon(theme)} />
-                    </IconButton>
+                        <ThemeLightModeIcon />
+                    </HeaderIconButton>
 
-                    <IconButton
+                    <HeaderIconButton
                         onClick={!isDarkMode ? () => toggleTheme(true) : undefined}
                         color={!isDarkMode ? "primary" : "inherit"}
-                        sx={headerStyles.iconButton(theme, !isDarkMode)}
+                        isDarkMode={!isDarkMode}
                     >
-                        <DarkModeIcon sx={headerStyles.darkModeIcon(theme)} />
-                    </IconButton>
+                        <ThemeDarkModeIcon />
+                    </HeaderIconButton>
 
-                    <IconButton
+                    <HeaderMenuButton
                         onClick={handleCollapseToggle}
                         color={!isDarkMode ? "primary" : "inherit"}
-                        sx={headerStyles.menuButton(theme, isMobile)}
+                        isMobile={isMobile}
                     >
                         <MenuIcon />
-                    </IconButton>
+                    </HeaderMenuButton>
 
-                    < IconButton
+                    < HeaderSettingsButton
                         color={!isDarkMode ? "primary" : "inherit"}
-                        sx={headerStyles.settingsButton(theme)}
                     >
                         <SettingsIcon />
-                    </IconButton >
+                    </HeaderSettingsButton >
 
-                    <IconButton
+                    <UserAvatarButton
                         color={!isDarkMode ? "primary" : "inherit"}
-                        sx={headerStyles.userAvatarButton(theme)}
                     >
-                        <span
-                            style={headerStyles.onlineStatus(theme) as React.CSSProperties}
-                        />
-                    </IconButton>
+                        <OnlineStatus />
+                    </UserAvatarButton>
                 </>
                 }
                 <Drawer anchor="left" open={isCollapsed} onClose={handleCollapseToggle}>
-                    <Box
-                        sx={headerStyles.drawer}
-                    >
-                        <IconButton
+                    <SideMenuDrawer>
+                        <HeaderIconButton
                             onClick={isDarkMode ? () => toggleTheme(false) : undefined}
                             color={isDarkMode ? "primary" : "inherit"}
-                            sx={headerStyles.iconButton(theme, isDarkMode)}
+                            isDarkMode={isDarkMode}
                         >
-                            <LightModeIcon sx={headerStyles.lightModeIcon(theme)} />
-                        </IconButton>
+                            <ThemeLightModeIcon />
+                        </HeaderIconButton>
 
-                        <IconButton
+                        <HeaderIconButton
                             onClick={!isDarkMode ? () => toggleTheme(true) : undefined}
                             color={!isDarkMode ? "primary" : "inherit"}
-                            sx={headerStyles.iconButton(theme, !isDarkMode)}
+                            isDarkMode={!isDarkMode}
                         >
-                            <DarkModeIcon sx={headerStyles.darkModeIcon(theme)} />
-                        </IconButton>
+                            <ThemeDarkModeIcon />
+                        </HeaderIconButton>
 
-                        <IconButton
+                        <HeaderSettingsButton
                             color={!isDarkMode ? "primary" : "inherit"}
-                            sx={headerStyles.settingsButton(theme)}
                         >
                             <SettingsIcon />
-                        </IconButton>
+                        </HeaderSettingsButton>
 
-                        <IconButton
+                        <UserAvatarButton
                             color={!isDarkMode ? "primary" : "inherit"}
-                            sx={headerStyles.userAvatarButton}
                         >
-                            <span
-                                style={headerStyles.onlineStatus(theme) as React.CSSProperties}
-                            />
-                        </IconButton>
-                    </Box>
+                            <OnlineStatus />
+                        </UserAvatarButton>
+                    </SideMenuDrawer>
                 </Drawer>
             </Toolbar>
-        </AppBar >
+        </HeaderAppBar >
     );
 }
 

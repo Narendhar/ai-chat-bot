@@ -33,13 +33,13 @@ const Message = ({ text, sender, timestamp }: MessageProps) => {
                             {timestamp}
                         </Typography>
                     </UsernameTimestampRow>
-                    <MessageBox>
+                    {text && <MessageBox>
                         {sender === "ai" ? (
                             <ReactMarkdown>{text}</ReactMarkdown>
                         ) : (
                             text
                         )}
-                    </MessageBox>
+                    </MessageBox>}
                 </MessageContent>
             </MessageWrapper>
         </MessageContainer>

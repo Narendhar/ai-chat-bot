@@ -38,7 +38,10 @@ export const MessageBox = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.custom.messageBackground,
     color: theme.palette.custom.textDark,
     borderRadius: 8,
-    padding: "2px 8px",
+    padding: "8px 8px",
     maxWidth: "100%",
-    overflowX: "auto"
+    overflowX: "auto",
+    "& p": {
+        margin: 0,
+    },
 }));

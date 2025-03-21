@@ -13,7 +13,7 @@ import { getISTTime } from "../utils/timeUtils";
 
 import { Message } from "../types/messageTypes";
 
-import { chatLayoutStyles } from "../styles/chatLayoutStyles";
+import { ChatLayout } from "../styles/chatLayoutStyles";
 
 /**
  * ChatPage component that renders a chat interface with messages exchanged between a user and an AI.
@@ -133,11 +133,11 @@ const ChatPage = () => {
     ).current;
 
     return (
-        <Box sx={chatLayoutStyles(theme)}>
+        <ChatLayout>
             <Header />
             <ChatWindow messages={messages} isLoading={isStreaming} errorMessage={errorMessage} />
             <ChatInput onSendMessage={throttledSendMessage} />
-        </Box >
+        </ChatLayout>
     );
 };
 

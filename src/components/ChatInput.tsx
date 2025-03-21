@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-import { Box, TextField, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, IconButton, useMediaQuery, useTheme } from "@mui/material";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import MicNoneIcon from '@mui/icons-material/MicNone';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 import { ChatInputProps } from "../types/chatInputTypes";
 
-import { chatInputStyles } from "../styles/chatInputStyles";
+import { ChatInputContainer, ChatBox, ChatTextField, SendButton, FooterText } from "../styles/chatInputStyles";
 
 /**
  * ChatInput component for sending messages in a chat interface.
@@ -35,36 +35,35 @@ const ChatInput = ({ onSendMessage }: ChatInputProps) => {
 
     return (
         <>
-            <Box sx={chatInputStyles.chatInputContainer}>
-                <Box sx={chatInputStyles.chatBox}>
+            <ChatInputContainer>
+                <ChatBox>
                     <IconButton>
                         <AttachFileIcon />
                     </IconButton>
 
-                    <TextField
+                    <ChatTextField
                         fullWidth
                         variant="outlined"
                         placeholder="Message..."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         onKeyDown={handleKeyPress}
-                        sx={chatInputStyles.textField}
                     />
 
                     <IconButton>
                         <MicNoneIcon />
                     </IconButton>
 
-                    <IconButton color="primary" onClick={handleSend} sx={chatInputStyles.sendButton}>
+                    <SendButton color="primary" onClick={handleSend}>
                         <ArrowUpwardIcon />
-                    </IconButton>
-                </Box>
-            </Box>
+                    </SendButton>
+                </ChatBox>
+            </ChatInputContainer>
 
             <Box display="flex" justifyContent="center" textAlign="center">
-                <Typography variant="body2" color="text.secondary" sx={chatInputStyles.footerText(isMobile)}>
+                <FooterText variant="body2" color="text.secondary" isMobile={isMobile}>
                     AI can make mistakes. Check our Terms & Conditions.
-                </Typography >
+                </FooterText >
             </Box >
         </>
     );
